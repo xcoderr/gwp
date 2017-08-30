@@ -128,3 +128,14 @@ func (post *Post) User() (user User) {
 		Scan(&user.Id, &user.Uuid, &user.Name, &user.Email, &user.CreatedAt)
 	return
 }
+
+func DeleteThreadByUUID(uuid string) (conv Thread, err error) {
+	thread, err := ThreadByUUID(uuid)
+	if err == nil {
+		_, err = Db.Exec("delete from posts where thread_id = $1", thread.Id)
+		if err == nil {
+			_, err = Db.Exec("delete from threads where uuid = $1", uuid)
+		}
+	}
+	return
+}

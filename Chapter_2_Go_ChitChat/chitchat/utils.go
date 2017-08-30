@@ -79,13 +79,24 @@ func parseTemplateFiles(filenames ...string) (t *template.Template) {
 	return
 }
 
+func printNewLine(lines string) []string {
+	s := strings.Split(lines, "\r\n")
+	//for _, l := range s {
+		//fmt.Println(l)
+	//}
+	return s
+}
+
 func generateHTML(writer http.ResponseWriter, data interface{}, filenames ...string) {
 	var files []string
 	for _, file := range filenames {
 		files = append(files, fmt.Sprintf("templates/%s.html", file))
 	}
 
-	templates := template.Must(template.ParseFiles(files...))
+	fmt.Println(files)
+	funcMap := template.FuncMap{"printNewLine": printNewLine}
+	templates := template.Must(template.New("layout.html").Funcs(funcMap).ParseFiles(files...))
+	//fmt.Printf("data:%q\n", data)
 	templates.ExecuteTemplate(writer, "layout", data)
 }
 

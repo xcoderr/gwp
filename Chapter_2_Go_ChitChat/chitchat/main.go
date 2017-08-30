@@ -35,6 +35,7 @@ func main() {
 	mux.HandleFunc("/thread/create", createThread)
 	mux.HandleFunc("/thread/post", postThread)
 	mux.HandleFunc("/thread/read", readThread)
+	mux.HandleFunc("/thread/delete", deleteThread)
 
 	// starting up the server
 	server := &http.Server{

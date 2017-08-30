@@ -22,11 +22,15 @@ func index(writer http.ResponseWriter, request *http.Request) {
 	if err != nil {
 		error_message(writer, request, "Cannot get threads")
 	} else {
-		_, err := session(writer, request)
+		s, err := session(writer, request)
 		if err != nil {
-			generateHTML(writer, threads, "layout", "public.navbar", "index")
+			generateHTML(writer, threads, "layout", "public.navbar", "public.index")
 		} else {
-			generateHTML(writer, threads, "layout", "private.navbar", "index")
+			if user, _ := s.User(); user.Name == "admin" {
+				generateHTML(writer, threads, "layout", "private.navbar", "private.admin.index")
+			} else {
+				generateHTML(writer, threads, "layout", "private.navbar", "private.index")
+			}
 		}
 	}
 }

@@ -86,3 +86,14 @@ func postThread(writer http.ResponseWriter, request *http.Request) {
 		http.Redirect(writer, request, url, 302)
 	}
 }
+
+func deleteThread(writer http.ResponseWriter, request *http.Request) {
+	vals := request.URL.Query()
+	uuid := vals.Get("id")
+	thread, err := data.DeleteThreadByUUID(uuid)
+	fmt.Println("deleteThread", thread)
+	if err != nil {
+		error_message(writer, request, "Cannot delete thread")
+	}
+	http.Redirect(writer, request, "/index", 302)
+}

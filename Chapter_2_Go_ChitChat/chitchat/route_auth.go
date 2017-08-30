@@ -8,6 +8,18 @@ import (
 // GET /login
 // Show the login page
 func login(writer http.ResponseWriter, request *http.Request) {
+	cookie, err := request.Cookie("_cookie")
+	fmt.Println(cookie, err)
+	if err == nil {
+		//fmt.Println(cookie)
+		session := data.Session{Uuid: cookie.Value}
+		ret, err := session.Check()
+		if ret == true {
+			http.Redirect(writer, request, "/", 302)
+			return
+		}
+		warning(err, "session check failed")
+	}
 	t := parseTemplateFiles("login.layout", "public.navbar", "login")
 	t.Execute(writer, nil)
 }
