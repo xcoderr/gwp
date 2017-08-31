@@ -5,12 +5,13 @@
 {{ range . }}
   <div class="panel panel-default">
     <div class="panel-heading">
-      <span class="lead"><!-- <i class="fa fa-comment-o">--></i>
-        {{with $x := printNewLine .Topic}}
+      <span class="lead"><!-- <i class="fa fa-comment-o"></i>-->
+       <pre>{{.Topic}}</pre>
+	   <!--{{with $x := printNewLine .Topic}}
           {{range $index, $value := $x}}
-            {{ $value }} <br/>
+           {{ $value }} 
           {{end}}
-      {{end}}
+       {{end}} -->
       </span>
     </div>
     <div class="panel-body">

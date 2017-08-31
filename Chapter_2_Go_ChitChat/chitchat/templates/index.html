@@ -7,10 +7,7 @@
   <div class="panel panel-default">
     <div class="panel-heading">
       <span class="lead"><!-- <i class="fa fa-comment-o">--></i>
-        {{with $x := printNewLine .Topic}}
-          {{range $index, $value := $x}}
-            {{ $value }} <br/>
-          {{end}}
+        <pre>{{.Topic}}</pre>
       {{end}}
       </span>
     </div>
